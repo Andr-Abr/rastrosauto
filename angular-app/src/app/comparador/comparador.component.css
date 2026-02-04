@@ -1,0 +1,85 @@
+/* Estilos para el componente comparador */
+
+/* Contenedor de imagen con altura fija */
+.vehicle-image-container {
+    width: 100%;
+    height: 200px; /* Altura fija del contenedor */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    border: 2px solid #dee2e6;
+}
+
+/* Imagen del vehículo - se ajusta SIN recortar */
+.vehicle-image {
+    width: 100%;      /* Ocupa todo el ancho */
+    height: 100%;     /* Ocupa todo el alto */
+    object-fit: fill; /* Se estira para llenar */
+    border: none !important;
+}
+
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.list-group {
+    background-color: white;
+    border-radius: 0.25rem;
+    margin-top: 0.25rem;
+}
+
+.list-group-item {
+    cursor: pointer;
+    border: 1px solid #ddd;
+    transition: background-color 0.2s;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+    font-weight: 500;
+}
+
+.table-success {
+    background-color: #d4edda !important;
+    font-weight: 500;
+}
+
+.card-header {
+    font-weight: bold;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 600;
+}
+
+.table td, .table th {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.shadow {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}

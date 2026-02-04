@@ -1,0 +1,225 @@
+<div class="container-fluid py-4">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h2 class="text-center text-white mb-3"><strong>Búsqueda Avanzada</strong></h2>
+      <div class="text-center">
+        <button class="btn btn-secondary btn-sm me-2" (click)="limpiarFiltros()">
+          🧹 Limpiar Filtros
+        </button>
+        <button class="btn btn-warning" (click)="buscar()">
+          🔍 Buscar Vehículos
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTROS PRINCIPALES -->
+  <div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">🚗 Filtros Principales</h5>
+    </div>
+    <div class="card-body">
+      <div class="row g-3">
+        <!-- Marca -->
+        <div class="col-md-3">
+          <label for="marca" class="form-label fw-bold">Marca</label>
+          <select 
+            id="marca" 
+            class="form-select" 
+            [(ngModel)]="marcaSeleccionada"
+            (change)="onMarcaChange()"
+          >
+            <option value="">Todas las marcas</option>
+            <option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</option>
+          </select>
+        </div>
+
+        <!-- Modelo - SIN disabled -->
+        <div class="col-md-3">
+          <label for="modelo" class="form-label fw-bold">Modelo</label>
+          <select 
+            id="modelo" 
+            class="form-select" 
+            [(ngModel)]="modeloSeleccionado"
+            (change)="onModeloChange()"
+          >
+            <option value="">Todos los modelos</option>
+            <option *ngFor="let modelo of modelos" [value]="modelo">{{ modelo }}</option>
+          </select>
+          <small class="text-info" *ngIf="!marcaSeleccionada">
+            🔓 Búsqueda libre activada ({{ modelos.length }} opciones)
+          </small>
+        </div>
+
+        <!-- Año - SIN disabled -->
+        <div class="col-md-3">
+          <label for="anio" class="form-label fw-bold">Año</label>
+          <select 
+            id="anio" 
+            class="form-select" 
+            [(ngModel)]="anioSeleccionado"
+            (change)="onAnioChange()"
+          >
+            <option [ngValue]="null">Todos los años</option>
+            <option *ngFor="let anio of anios" [ngValue]="anio">{{ anio }}</option>
+          </select>
+          <small class="text-info" *ngIf="!marcaSeleccionada && !modeloSeleccionado">
+            🔓 Búsqueda libre ({{ anios.length }} opciones)
+          </small>
+        </div>
+
+        <!-- Generación - SIN disabled -->
+        <div class="col-md-3">
+          <label for="generacion" class="form-label fw-bold">Generación</label>
+          <select 
+            id="generacion" 
+            class="form-select" 
+            [(ngModel)]="generacionSeleccionada"
+          >
+            <option value="">Todas las generaciones</option>
+            <option *ngFor="let gen of generaciones" [value]="gen">{{ gen }}</option>
+          </select>
+          <small class="text-muted">{{ generaciones.length }} opciones</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTROS TÉCNICOS -->
+  <div class="card shadow mb-4">
+    <div class="card-header bg-success text-white">
+      <h5 class="mb-0">⚙️ Especificaciones Técnicas</h5>
+    </div>
+    <div class="card-body">
+      <div class="row g-3">
+        <!-- Motor - SIN disabled -->
+        <div class="col-md-4">
+          <label for="motor" class="form-label fw-bold">Motor</label>
+          <select 
+            id="motor" 
+            class="form-select" 
+            [(ngModel)]="motorSeleccionado"
+          >
+            <option value="">Todos los motores</option>
+            <option *ngFor="let motor of motores" [value]="motor">{{ motor }}</option>
+          </select>
+          <small class="text-success">{{ motores.length }} opciones disponibles</small>
+        </div>
+
+        <!-- Combustible - SIN disabled -->
+        <div class="col-md-4">
+          <label for="combustible" class="form-label fw-bold">Tipo de Combustible</label>
+          <select 
+            id="combustible" 
+            class="form-select" 
+            [(ngModel)]="combustibleSeleccionado"
+          >
+            <option value="">Todos los tipos</option>
+            <option *ngFor="let comb of tiposCombustible" [value]="comb">{{ comb }}</option>
+          </select>
+          <small class="text-success">{{ tiposCombustible.length }} opciones disponibles</small>
+        </div>
+
+        <!-- Tracción - SIN disabled -->
+        <div class="col-md-4">
+          <label for="traccion" class="form-label fw-bold">Tipo de Tracción</label>
+          <select 
+            id="traccion" 
+            class="form-select" 
+            [(ngModel)]="traccionSeleccionada"
+          >
+            <option value="">Todos los tipos</option>
+            <option *ngFor="let trac of tiposTraccion" [value]="trac">{{ trac }}</option>
+          </select>
+          <small class="text-success">{{ tiposTraccion.length }} opciones disponibles</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTROS ADICIONALES -->
+  <div class="card shadow mb-4">
+    <div class="card-header bg-warning">
+      <h5 class="mb-0">🎯 Características Adicionales</h5>
+    </div>
+    <div class="card-body">
+      <div class="row g-3">
+        <!-- Carrocería - SIN disabled -->
+        <div class="col-md-4">
+          <label for="carroceria" class="form-label fw-bold">Tipo de Carrocería</label>
+          <select 
+            id="carroceria" 
+            class="form-select" 
+            [(ngModel)]="carroceriaSeleccionada"
+          >
+            <option value="">Todos los tipos</option>
+            <option *ngFor="let carr of tiposCarroceria" [value]="carr">{{ carr }}</option>
+          </select>
+          <small class="text-warning">{{ tiposCarroceria.length }} opciones</small>
+        </div>
+
+        <!-- Plazas - SIN disabled -->
+        <div class="col-md-4">
+          <label for="plazas" class="form-label fw-bold">Número de Plazas</label>
+          <select 
+            id="plazas" 
+            class="form-select" 
+            [(ngModel)]="plazasSeleccionadas"
+          >
+            <option [ngValue]="null">Todos los números</option>
+            <option *ngFor="let plaza of numeroPlazas" [ngValue]="plaza">{{ plaza.includes('-') ? plaza + ' plazas' : plaza + ' plazas' }}</option>
+          </select>
+          <small class="text-warning">{{ numeroPlazas.length }} opciones</small>
+        </div>
+
+        <!-- Consumo -->
+        <!-- REEMPLAZAR por este código corregido: -->
+<div class="col-md-4">
+  <label class="form-label fw-bold">
+    Rango de Consumo Km/L - Kw/h: 
+    <span class="badge bg-info">{{ consumoMinSeleccionado.toFixed(3) }}</span>
+    - 
+    <span class="badge bg-success">{{ consumoMaxSeleccionado.toFixed(3) }}</span>
+  </label>
+  
+  <!-- Contenedor para los dos sliders superpuestos -->
+  <div class="range-slider-container">
+    <!-- Slider Mínimo (punto izquierdo) -->
+    <input 
+      type="range" 
+      class="form-range range-min" 
+      [min]="consumoMin" 
+      [max]="consumoMax" 
+      step="0.001"
+      [(ngModel)]="consumoMinSeleccionado"
+      (input)="onConsumoMinChange()"
+    >
+    
+    <!-- Slider Máximo (punto derecho) -->
+    <input 
+      type="range" 
+      class="form-range range-max" 
+      [min]="consumoMin" 
+      [max]="consumoMax" 
+      step="0.001"
+      [(ngModel)]="consumoMaxSeleccionado"
+      (input)="onConsumoMaxChange()"
+    >
+  </div>
+  
+  <div class="d-flex justify-content-between mt-2">
+    <small class="text-muted">Absoluto Min: {{ consumoMin.toFixed(3) }}</small>
+    <small class="text-muted">Absoluto Max: {{ consumoMax.toFixed(3) }}</small>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTÓN DE BÚSQUEDA FINAL -->
+  <div class="text-center mt-4">
+    <button class="btn btn-warning btn-lg px-5" (click)="buscar()">
+      🔍 Buscar Vehículos
+    </button>
+  </div>
+</div>

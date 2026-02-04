@@ -1,0 +1,25 @@
+# Compilados de Maven
+target/
+
+# Datos de IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+bin/
+.metadata/
+
+# Compilados de Angular
+angular-app/node_modules/
+angular-app/dist/
+
+# Variables de entorno
+.env
+
+# Logs
+*.log
+
+# Sistema operativo
+Thumbs.db
+desktop.ini

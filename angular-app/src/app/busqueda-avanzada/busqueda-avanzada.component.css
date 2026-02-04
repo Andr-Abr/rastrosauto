@@ -1,0 +1,147 @@
+.card {
+  border: none;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.form-select:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.form-label {
+  margin-bottom: 0.5rem;
+  color: #495057;
+}
+
+.form-range {
+  cursor: pointer;
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 0.4rem 0.6rem;
+}
+
+small.text-success,
+small.text-warning {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.btn-lg {
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.btn-lg:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== DOUBLE RANGE SLIDER ========== */
+
+.range-slider-container {
+  position: relative;
+  height: 6px;
+  margin: 15px 0;
+}
+
+.range-slider-container input[type="range"] {
+  position: absolute;
+  width: 100%;
+  height: 6px;
+  background: transparent;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Track (barra de fondo) - invisible */
+.range-slider-container input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  background: transparent;
+}
+
+.range-slider-container input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 6px;
+  background: transparent;
+}
+
+/* Thumbs (puntos) - visibles y con pointer-events */
+.range-slider-container input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0d6efd; /* Azul Bootstrap */
+  cursor: pointer;
+  pointer-events: auto;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 3;
+}
+
+.range-slider-container input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0d6efd;
+  cursor: pointer;
+  pointer-events: auto;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 3;
+}
+
+/* Diferenciación visual entre min y max */
+.range-slider-container .range-min::-webkit-slider-thumb {
+  background: #0dcaf0; /* Azul claro para mínimo */
+}
+
+.range-slider-container .range-min::-moz-range-thumb {
+  background: #0dcaf0;
+}
+
+.range-slider-container .range-max::-webkit-slider-thumb {
+  background: #198754; /* Verde para máximo */
+}
+
+.range-slider-container .range-max::-moz-range-thumb {
+  background: #198754;
+}
+
+/* Barra de fondo visible (línea base) */
+.range-slider-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: #dee2e6;
+  border-radius: 3px;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+/* Estados hover */
+.range-slider-container input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}
+
+.range-slider-container input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}

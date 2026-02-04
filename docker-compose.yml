@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # ============================================
+  # Servicio 1: Base de datos PostgreSQL
+  # ============================================
+  db:
+    image: postgres:15-alpine
+    container_name: rastrosauto-db
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Raizcuadrada
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - rastrosauto-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================
+  # Servicio 2: Backend Spring Boot
+  # ============================================
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rastrosauto-backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/mydb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Raizcuadrada
+    ports:
+      - "8080:8080"
+    networks:
+      - rastrosauto-network
+    restart: unless-stopped
+
+# ============================================
+# Volúmenes (para persistir datos de PostgreSQL)
+# ============================================
+volumes:
+  postgres-data:
+
+# ============================================
+# Redes (para que los contenedores se comuniquen)
+# ============================================
+networks:
+  rastrosauto-network:
+    driver: bridge

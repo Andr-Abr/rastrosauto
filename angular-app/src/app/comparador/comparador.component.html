@@ -1,0 +1,264 @@
+<div class="container-fluid py-4">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="text-center mb-3 text-white"><strong>Comparación de Vehículos</strong></h1>
+      <div class="text-center">
+        <button class="btn btn-secondary btn-sm" (click)="limpiarComparacion()">
+          Limpiar Comparación
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- ========== VEHÍCULO 1 ========== -->
+    <div class="col-lg-6">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0"><strong>Seleccionar Vehículo 1</strong></h4>
+        </div>
+        <div class="card-body">
+          <!-- Búsqueda -->
+          <div class="mb-3 position-relative">
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Buscar vehículo..."
+              [(ngModel)]="busqueda1"
+              (input)="buscarVehiculo1($event)"
+            >
+            
+            <!-- Sugerencias -->
+            <div 
+              class="list-group position-absolute w-100 shadow-lg" 
+              style="z-index: 1000; max-height: 300px; overflow-y: auto;"
+              *ngIf="mostrarSugerencias1 && sugerencias1.length > 0"
+            >
+              <button 
+                type="button"
+                class="list-group-item list-group-item-action"
+                *ngFor="let v of sugerencias1"
+                (click)="seleccionarVehiculo1(v)"
+              >
+                {{ v.marca }} {{ v.modelo }} {{ v.anio }} - {{ v.motor }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Detalles del vehículo -->
+          <div *ngIf="vehiculo1">
+            <div class="mb-3 text-center vehicle-image-container">
+              <img 
+                [src]="vehiculo1.rutaImagen || '/img/placeholder.jpg'" 
+                class="img-fluid rounded vehicle-image" 
+                alt="Imagen vehículo 1"
+              >
+            </div>
+            
+            <ul class="list-unstyled">
+              <li class="mb-2"><strong>Marca:</strong> {{ vehiculo1.marca }}</li>
+              <li class="mb-2"><strong>Modelo:</strong> {{ vehiculo1.modelo }}</li>
+              <li class="mb-2"><strong>Año:</strong> {{ vehiculo1.anio }}</li>
+              <li class="mb-2"><strong>Generación:</strong> {{ vehiculo1.generacion }}</li>
+              <li class="mb-2"><strong>Motor:</strong> {{ vehiculo1.motor }}</li>
+              <li class="mb-2"><strong>Tipo de combustible:</strong> {{ vehiculo1.tipoCombustible }}</li>
+              <li class="mb-2"><strong>Consumo Km/L-Kw/H:</strong> {{ vehiculo1.consumoKmL }}</li>
+              <li class="mb-2"><strong>Tipo de tracción:</strong> {{ vehiculo1.tipoTraccion }}</li>
+              <li class="mb-2"><strong>Tipo de carrocería:</strong> {{ vehiculo1.tipoCarroceria }}</li>
+              <li class="mb-2"><strong>Número de Plazas:</strong> {{ vehiculo1.numeroPlazas }}</li>
+            </ul>
+          </div>
+
+          <div *ngIf="!vehiculo1" class="text-muted text-center py-5">
+            <p class="lead">Selecciona un vehículo para comparar</p>
+            <small>Escribe al menos 3 caracteres para buscar</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== VEHÍCULO 2 ========== -->
+    <div class="col-lg-6">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-warning">
+          <h4 class="mb-0"><strong>Seleccionar Vehículo 2</strong></h4>
+        </div>
+        <div class="card-body">
+          <!-- Búsqueda -->
+          <div class="mb-3 position-relative">
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Buscar vehículo..."
+              [(ngModel)]="busqueda2"
+              (input)="buscarVehiculo2($event)"
+            >
+            
+            <!-- Sugerencias -->
+            <div 
+              class="list-group position-absolute w-100 shadow-lg" 
+              style="z-index: 1000; max-height: 300px; overflow-y: auto;"
+              *ngIf="mostrarSugerencias2 && sugerencias2.length > 0"
+            >
+              <button 
+                type="button"
+                class="list-group-item list-group-item-action"
+                *ngFor="let v of sugerencias2"
+                (click)="seleccionarVehiculo2(v)"
+              >
+                {{ v.marca }} {{ v.modelo }} {{ v.anio }} - {{ v.motor }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Detalles del vehículo -->
+          <div *ngIf="vehiculo2">
+            <div class="mb-3 text-center vehicle-image-container">
+              <img 
+                [src]="vehiculo2.rutaImagen || '/img/placeholder.jpg'" 
+                class="img-fluid rounded vehicle-image" 
+                alt="Imagen vehículo 2"
+              >
+            </div>
+            
+            <ul class="list-unstyled">
+              <li class="mb-2"><strong>Marca:</strong> {{ vehiculo2.marca }}</li>
+              <li class="mb-2"><strong>Modelo:</strong> {{ vehiculo2.modelo }}</li>
+              <li class="mb-2"><strong>Año:</strong> {{ vehiculo2.anio }}</li>
+              <li class="mb-2"><strong>Generación:</strong> {{ vehiculo2.generacion }}</li>
+              <li class="mb-2"><strong>Motor:</strong> {{ vehiculo2.motor }}</li>
+              <li class="mb-2"><strong>Tipo de combustible:</strong> {{ vehiculo2.tipoCombustible }}</li>
+              <li class="mb-2"><strong>Consumo Km/L-Kw/H:</strong> {{ vehiculo2.consumoKmL }}</li>
+              <li class="mb-2"><strong>Tipo de tracción:</strong> {{ vehiculo2.tipoTraccion }}</li>
+              <li class="mb-2"><strong>Tipo de carrocería:</strong> {{ vehiculo2.tipoCarroceria }}</li>
+              <li class="mb-2"><strong>Número de Plazas:</strong> {{ vehiculo2.numeroPlazas }}</li>
+            </ul>
+          </div>
+
+          <div *ngIf="!vehiculo2" class="text-muted text-center py-5">
+            <p class="lead">Selecciona un vehículo para comparar</p>
+            <small>Escribe al menos 3 caracteres para buscar</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== TABLA COMPARATIVA ========== -->
+  <div class="row mt-5" *ngIf="vehiculo1 && vehiculo2">
+    <div class="col-12">
+      <div class="card shadow-lg">
+        <div class="card-header bg-dark text-white">
+          <h4 class="mb-0"><strong>Comparación Detallada</strong></h4>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th style="width: 30%;">Característica</th>
+                  <th class="bg-primary text-white text-center" style="width: 35%;">
+                    {{ vehiculo1.marca }} {{ vehiculo1.modelo }}
+                  </th>
+                  <th class="bg-warning text-center" style="width: 35%;">
+                    {{ vehiculo2.marca }} {{ vehiculo2.modelo }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Consumo Km/L-Kw/H</strong></td>
+                  <td 
+                    class="text-center"
+                    [class.table-success]="vehiculo1.consumoKmL > vehiculo2.consumoKmL"
+                  >
+                    {{ vehiculo1.consumoKmL }}
+                    <span *ngIf="vehiculo1.consumoKmL > vehiculo2.consumoKmL" class="badge bg-success ms-2">
+                      Mejor
+                    </span>
+                  </td>
+                  <td 
+                    class="text-center"
+                    [class.table-success]="vehiculo2.consumoKmL > vehiculo1.consumoKmL"
+                  >
+                    {{ vehiculo2.consumoKmL }}
+                    <span *ngIf="vehiculo2.consumoKmL > vehiculo1.consumoKmL" class="badge bg-success ms-2">
+                      Mejor
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Número de Plazas</strong></td>
+                  <td 
+                    class="text-center"
+                    [class.table-success]="vehiculo1.numeroPlazas > vehiculo2.numeroPlazas"
+                  >
+                    {{ vehiculo1.numeroPlazas }}
+                    <span *ngIf="vehiculo1.numeroPlazas > vehiculo2.numeroPlazas" class="badge bg-success ms-2">
+                      Más capacidad
+                    </span>
+                  </td>
+                  <td 
+                    class="text-center"
+                    [class.table-success]="vehiculo2.numeroPlazas > vehiculo1.numeroPlazas"
+                  >
+                    {{ vehiculo2.numeroPlazas }}
+                    <span *ngIf="vehiculo2.numeroPlazas > vehiculo1.numeroPlazas" class="badge bg-success ms-2">
+                      Más capacidad
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Año</strong></td>
+                  <td 
+                    class="text-center"
+                    [class.table-success]="vehiculo1.anio > vehiculo2.anio"
+                  >
+                    {{ vehiculo1.anio }}
+                    <span *ngIf="vehiculo1.anio > vehiculo2.anio" class="badge bg-success ms-2">
+                      Más reciente
+                    </span>
+                  </td>
+                  <td 
+                    class="text-center"
+                    [class.table-success]="vehiculo2.anio > vehiculo1.anio"
+                  >
+                    {{ vehiculo2.anio }}
+                    <span *ngIf="vehiculo2.anio > vehiculo1.anio" class="badge bg-success ms-2">
+                      Más reciente
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Generación</strong></td>
+                  <td class="text-center">{{ vehiculo1.generacion }}</td>
+                  <td class="text-center">{{ vehiculo2.generacion }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Motor</strong></td>
+                  <td class="text-center">{{ vehiculo1.motor }}</td>
+                  <td class="text-center">{{ vehiculo2.motor }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Tipo de Combustible</strong></td>
+                  <td class="text-center">{{ vehiculo1.tipoCombustible }}</td>
+                  <td class="text-center">{{ vehiculo2.tipoCombustible }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Tipo de Tracción</strong></td>
+                  <td class="text-center">{{ vehiculo1.tipoTraccion }}</td>
+                  <td class="text-center">{{ vehiculo2.tipoTraccion }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Tipo de Carrocería</strong></td>
+                  <td class="text-center">{{ vehiculo1.tipoCarroceria }}</td>
+                  <td class="text-center">{{ vehiculo2.tipoCarroceria }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

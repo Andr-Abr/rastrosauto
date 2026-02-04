@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img th:src="@{/img/logo.png}" alt="Logo de la aplicación" width="50">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/vehiculos/buscar}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#footer-section">Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#cuenta-section">Cuenta</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-0" style="margin-top: 56px;">
+        <img th:src="@{/img/fondo.jpg}" class="img-fluid" alt="fondoimagen" 
+             style="object-fit: cover; width: 100%; height: 70vh;">
+    </div>
+
+    <section id="cuenta-section" class="account-section py-5 text-dark" style="background-color: #434242;">
+        <div class="container mt-5">
+            <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${success}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="bg-white p-4 rounded shadow">
+                        <div class="account-container">
+                            <h2><strong>Perfil de Usuario</strong></h2>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3>Información personal</h3>
+                                    <p><strong>Nombre de usuario:</strong> 
+                                        <span th:text="${cuenta.nombres + ' ' + cuenta.apellidos}"></span></p>
+                                    <p><strong>Correo electrónico:</strong> 
+                                        <span th:text="${cuenta.correo}"></span></p>
+                                    <p><strong>Sexo:</strong> 
+                                        <span th:text="${cuenta.sexo}"></span></p>
+                                    <p><strong>Cedula:</strong> 
+                                        <span th:text="${cuenta.cedula}"></span></p>
+                                    <p><strong>Fecha de nacimiento:</strong> 
+                                        <span th:text="${#dates.format(cuenta.fechaNacimiento, 'dd-MM-yyyy')}"></span></p>
+                                    <p><strong>Lugar de nacimiento:</strong> 
+                                        <span th:text="${cuenta.pais + ', ' + cuenta.departamento + ', ' + cuenta.ciudad}"></span></p>
+
+                                    <h3 class="mt-4">Cambiar correo electrónico</h3>
+                                    <form th:action="@{/cuenta/update-email}" method="POST">
+                                        <div class="form-group mb-2">
+                                            <label for="newEmail">Nuevo correo electrónico:</label>
+                                            <input type="email" class="form-control" id="newEmail" name="newEmail" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-warning mt-2">Guardar nuevo correo</button>
+                                    </form>
+
+                                    <h3 class="mt-4">Cambiar contraseña</h3>
+                                    <form th:action="@{/cuenta/update-password}" method="POST">
+                                        <div class="form-group mb-2">
+                                            <label for="currentPassword">Contraseña actual:</label>
+                                            <input type="password" class="form-control" id="currentPassword" 
+                                                   name="currentPassword" required>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="newPassword">Nueva contraseña:</label>
+                                            <input type="password" class="form-control" id="newPassword" 
+                                                   name="newPassword" required>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="newPasswordConfirmation">Confirmar nueva contraseña:</label>
+                                            <input type="password" class="form-control" id="newPasswordConfirmation" 
+                                                   name="newPasswordConfirmation" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-warning mt-2">Guardar nueva contraseña</button>
+                                    </form>
+                                    
+                                    <div class="mt-5">
+                                        <h3>Eliminar Cuenta</h3>
+                                        <p>Advertencia: Esta acción es irreversible y eliminará todos tus datos.</p>
+                                        <form th:action="@{/cuenta/delete}" method="POST" 
+                                              onsubmit="return confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.');">
+                                            <button type="submit" class="btn btn-danger">Eliminar mi cuenta</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h3>Acciones</h3>
+                                    <a th:href="@{/historial}" class="btn btn-dark">Historial</a>
+                                    <a th:href="@{/favoritos}" class="btn btn-dark">Favoritos</a>
+                                    <form th:action="@{/logout}" method="POST" class="d-inline-block">
+                                        <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer-section" class="footer-section bg-dark text-light py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3 text-center text-md-start mb-3 mb-md-0">
+                    <img th:src="@{/img/logo.png}" alt="Logo" class="img-fluid" style="max-width: 100px;">
+                </div>
+                <div class="col-md-6 text-center mb-3 mb-md-0">
+                    <a href="#" class="text-light text-decoration-none me-3">© <span th:text="${#dates.year(#dates.createNow())}"></span></a>
+                    <a href="#" class="text-light text-decoration-none me-3">T&Cs</a>
+                    <a href="#" class="text-light text-decoration-none">Privacidad</a>
+                </div>
+                <div class="col-md-3 text-center text-md-end mb-3 mb-md-0">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Ingrese su Email">
+                        <button class="btn btn-light" type="button">Suscribirse</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col text-center">
+                    <a href="#" class="text-light me-3">
+                        <img th:src="@{/img/facebook.png}" alt="Facebook" class="img-fluid" style="max-width: 30px;">
+                    </a>
+                    <a href="#" class="text-light me-3">
+                        <img th:src="@{/img/instagram.png}" alt="Instagram" class="img-fluid" style="max-width: 30px;">
+                    </a>
+                    <a href="#" class="text-light">
+                        <img th:src="@{/img/twitter.png}" alt="Twitter" class="img-fluid" style="max-width: 30px;">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
